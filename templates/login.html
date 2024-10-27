@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Prevent scrolling */
+            font-family: Arial, sans-serif; /* Font style for the entire page */
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(http://127.0.0.1:5000/static/css/reg.png);
+            background-size: cover; /* Make the background cover the entire page */
+            background-position: center;
+            filter: blur(8px); /* Apply blur effect */
+            z-index: 0; /* Send the background behind the form */
+        }
+
+        #loginContainer {
+            position: relative; /* Position relative for the form */
+            z-index: 1; /* Bring the form in front of the blurred background */
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background for the form */
+            padding: 30px;
+            border-radius: 15px; /* More rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+            width: 350px; /* Fixed width for the form container */
+        }
+
+        #logo {
+            position: absolute; /* Position logo absolutely */
+            top: 10px; /* Space from the top */
+            left: 10px; /* Space from the left */
+        }
+
+        h2 {
+            text-align: center;
+            margin: 60px 0 20px; /* Space for the logo above */
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #555; /* Color for labels */
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF; /* Primary button color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        #message {
+            margin-top: 15px;
+            text-align: center;
+            color: #d9534f; /* Color for error messages */
+        }
+
+        p {
+            text-align: center;
+            margin-top: 20px; /* Space above the paragraph */
+        }
+
+        /* Image styling */
+        #logo img {
+            width: 50px; /* Set the width of the logo */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div> <!-- Background div -->
+    <div id="loginContainer">
+        <div id="logo">
+            <img src="http://127.0.0.1:5000/static/css/bot.ico" alt="Logo" />
+        </div>
+        <h2>Login</h2>
+        <form id="login-form" method="POST" action="/login">
+            <label for="username">Username:</label>
+            <input type="text" name="username" placeholder="Username" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div id="message"></div>
+        <p>Don't have an account? <a href="/register">Register here</a></p>
+        <p><a href="/forgot-password">Forgot Password?</a></p> <!-- Link to forgot password page -->
+    </div>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(this);
+            const data = new URLSearchParams(formData).toString(); // Convert form data to URL-encoded string
+
+            fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: data
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === "Login successful!") {
+                    window.location.href = '/chatbot'; // Redirect to chatbot page on success
+                } else {
+                    document.getElementById('message').innerText = data.message; // Show error message
+                }
+            });
+        });
+    </script>
+</body>
+</html>

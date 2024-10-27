@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Order Chatbot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkmfRyVX3pBnMFcV7oQPJk]9QevSCWrW6A=="
+crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    *{
+        text-decoration: none;
+    }
+    body {
+  overflow: hidden;
+  color: white;
+  animation: fadeIn 1s ease-in-out;
+  background-color: black;
+  background-attachment: fixed;
+}
+
+header {
+  width: 100%;
+  height: 100vh;
+  background-color: transparent;
+  animation: fadeIn 1s ease-in-out;
+}
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: #fff;
+  animation: twinkle 2s infinite;
+  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  animation: slideInFromTop 1s ease-in-out;
+}
+
+.navbar img {
+  width: 50px;
+  animation: rotateIn 1s ease-in-out;
+}
+
+.navbar .center-nav a,
+.navbar .social a {
+  color: white;
+  margin-left: 15px;
+  font-size: 1.3rem;
+  transition: all 0.5s ease;
+  animation: fadeInUp 1s ease-in-out;
+}
+
+.navbar .center-nav a:first-child {
+  color: rgb(255, 140, 0);
+}
+.navbar .center-nav a:hover,
+.navbar .social a:hover {
+  color: rgb(255, 140, 0);
+  text-shadow: 0px 0px 30px rgb(255, 140, 0);
+}.navber .center-nav a {
+  position: relative;
+  text-decoration: none;
+}
+
+.navber .center-nav a::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(255, 140, 0);
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.navber .center-nav a:hover::before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+
+.text {
+  position: relative;
+  top: 1rem;
+  left: 11rem;
+  letter-spacing: 1px;
+  animation: fadeInUp 1s ease-in-out;
+}
+
+.text h1 {
+  font-weight: bold;
+  font-size: 4rem;
+  font-family: sans-serif;
+  margin-bottom: 10px;
+  animation: fadeInUp 1s ease-in-out;
+}
+.btn {
+  color: white;
+  border: 2px solid;
+  position: relative;
+  top: 3rem;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  border-radius: 6px;
+  transition: all 0.5s ease;
+  margin-right: 10px;
+  animation: fadeInUp 1s ease-in-out 0.5s backwards;
+}
+.text .btn:hover {
+  background-color: rgb(255, 140, 0);
+  box-shadow: 0 0 10px 2px rgb(255, 140, 0);
+}
+
+.text p {
+  width: 46%;
+  animation: fadeInUp 1s ease-in-out 1s backwards;
+}
+
+.burger {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  width: 90%;
+  padding: 20px;
+  animation: slideInFromBottom 1s ease-in-out 1.5s backwards;
+}
+.burger img {
+  width: 100px;
+  height: 100px;
+  margin-left: 20px;
+  object-fit: cover;
+  border: 2px solid white;
+  transition: transform 0.3s ease;
+  animation: fadeInUp 1s ease-in-out 2s backwards;
+}
+
+.burger img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+}
+.burger-toggle img {
+  position: absolute;
+  width: 38%;
+  height: 74%;
+  right: 47px;
+  top: 7rem;
+  filter: drop-shadow(63px 90px 392px rgba(0, 0, 0, 0.5)); /* Assuming a color is needed */
+  animation: fadeInUp 1s ease-in-out 2.1s backwards;
+}
+
+.burger,
+.burger-toggle {
+  display: flex;
+}
+.burger-toggle img {
+  display: none;
+}
+
+.burger-toggle img.active {
+  display: block;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    transform: rotate3d(0, 0, 1, -200deg);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+body.blurred {
+        filter: blur(5px);
+    }
+    .menu-container {
+    position: fixed; /* Stays fixed on the screen */
+    top: 0; /* Aligns to the top */
+    left: 0; /* Aligns to the left */
+    width: 100%; /* Takes full width of the viewport */
+    height: 100%; /* Takes full height of the viewport */
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    display: flex; /* Enables flexbox layout */
+    align-items: center; /* Centers items vertically */
+    justify-content: center; /* Centers items horizontally */
+    z-index: 1000; /* Ensures it’s on top of other content */
+}
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+    }
+
+.centered-image {
+    max-width: 40%;
+    max-height: 20%;
+    object-fit: contain; /* Ensures the image keeps its aspect ratio */
+    image-rendering: auto; /* Prevents the image from blurring */
+}
+.menu-container img {
+    max-width: 100%; /* Allows image to scale down for smaller screens */
+    max-height: 100%; /* Ensures image does not exceed the container height */
+    height: auto; /* Maintains aspect ratio */
+    width: auto; /* Maintains aspect ratio */
+    border-radius: 8px; /* Optional: adds rounded corners */
+}
+        .menu-container .close-btn {
+            color: white;
+            font-size: 1.5rem;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+        }
+</style>
+    <body>
+        <header>
+            <div id="stars"></div>
+            <div class="navbar">
+              <img src="http://127.0.0.1:5000/static/css/bot.ico" alt="Logo" />
+              <div class="center-nav">
+                <a href="">Home</a>
+                <a href="" id="menuLink">Menu</a> <!-- Added ID here -->
+                <a href="">About</a>
+            </div>
+              <div class="social">
+                <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
+                <a href="http://127.0.0.1:5000/register"><i class="fa-solid fa-user-plus"></i></a>
+              </div>
+            </div>
+            <div class="text">
+                <h1>THE FINEST<br> FOOD CHOICE</h1>
+                <p>Hungry? Our Food Order Chatbot makes ordering easy! Choose from burgers, pizzas, salads, curries, and more for quick snacks or full meals delivered to you!</p>
+
+                <a href="" class="btn">Order Now</a>
+                <a href="" class="btn">View more</a>
+              </div>
+              
+              <div class="burger">
+                <img src="http://127.0.0.1:5000/static/css/burger.png" alt="Burger Image 1" />
+                <img src="http://127.0.0.1:5000/static/css/pngwing.com (12).png" alt="Burger Image 2" />
+                <img src="http://127.0.0.1:5000/static/css/burger2.png" alt="Burger Image 3" />
+                <img src="http://127.0.0.1:5000/static/css/Flying Burger PNG Image - 2084x2084.png" alt="Flying Burger Image" />
+                <img src="http://127.0.0.1:5000/static/css/pngwing.com (16).png" alt="Burger Image 5" />
+              </div>
+
+              <div class="burger-toggle">
+                <img src="http://127.0.0.1:5000/static/css/Flying Burger PNG Image - 2084x2084.png" alt="" class="active">
+              </div>
+              <div class="menu-container" id="menuContainer" style="display: none;">
+                <span class="close-btn" onclick="hideMenu()">×</span>
+                <img src="http://127.0.0.1:5000/static/css/menu1.png" alt="Menu Image">
+            </div>
+            
+          </header>
+          
+    </body>
+    <script>
+          document.getElementById('menuLink').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default link behavior
+        event.stopPropagation(); // Stop the event from bubbling up
+        document.getElementById('menuContainer').style.display = 'flex'; 
+    });
+
+    // Function to hide the menu container and remove blur effect
+    function hideMenu() {
+        document.getElementById('menuContainer').style.display = 'none'; // Hide the menu container
+        document.body.classList.remove('blurred'); // Remove blur effect from the body
+    }
+
+    // Hide menu when clicking outside of it
+    document.addEventListener('click', function(event) {
+        const menuContainer = document.getElementById('menuContainer');
+        const menuLink = document.getElementById('menuLink');
+
+        // Check if the click was outside the menu container
+        if (menuContainer.style.display === 'flex' && !menuContainer.contains(event.target) && !menuLink.contains(event.target)) {
+            hideMenu();
+        }
+    });
+    const burgerImages = document.querySelectorAll('.burger img');
+const toggleImages = document.querySelectorAll('.burger-toggle img');
+let currentIndex = 0;
+
+// Initialize the first toggle image as active
+toggleImages[currentIndex].classList.add('active');
+
+// Add click event listeners to burger images
+burgerImages.forEach((img, index) => {
+  img.addEventListener('click', () => {
+    // Remove 'active' class from all toggle images
+    toggleImages.forEach(toggleImg => toggleImg.classList.remove('active'));
+    
+    // Update the current toggle image and add 'active' class
+    currentIndex = index; // Set the currentIndex to the clicked burger image's index
+    toggleImages[currentIndex].classList.add('active');
+    toggleImages[currentIndex].src = burgerImages[index].src; // Update the source
+  });
+});
+function createStars() {
+    const starsContainer = document.getElementById('stars');
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.top = `${Math.random() * windowHeight}px`;
+        star.style.left = `${Math.random() * windowWidth}px`;
+        starsContainer.appendChild(star);
+    }
+}
+
+// Call the function to create stars on load
+window.onload = createStars;
+
+
+        async function registerUser() {
+            const username = document.getElementById('register-username').value;
+            const password = document.getElementById('register-password').value;
+
+            const response = await fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            const result = await response.json();
+            alert(result.message);
+        }
+
+        async function loginUser() {
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ username, password })
+            });
+
+            const result = await response.json();
+            alert(result.message);
+        }
+    </script>
+</head>
+<body>
+  
+</body>
+</html>
